@@ -1,0 +1,24 @@
+schema {
+    query: Query
+}
+
+type Query {
+    helloWorld : String
+    findAllBooks : [Book]
+    findBookById(id: String) : Book
+
+}
+type Mutation {
+    addBook(
+        name: String!
+        description: String
+        authorName: String
+    ):Book
+}
+
+type Book {
+    id : String
+    name : String
+    authorName: String
+    description : String
+}
