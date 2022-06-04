@@ -16,6 +16,10 @@ type Mutation {
     ):Book
 }
 
+type Subscription {
+    findBook: Book
+}
+
 type Book {
     id : String
     name : String

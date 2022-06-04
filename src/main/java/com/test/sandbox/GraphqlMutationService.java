@@ -1,12 +1,9 @@
 package com.test.sandbox;
 
-import graphql.kickstart.tools.GraphQLMutationResolver;
-import graphql.kickstart.tools.GraphQLQueryResolver;
+import com.coxautodev.graphql.tools.GraphQLMutationResolver;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import reactor.core.publisher.Mono;
 
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -16,14 +13,17 @@ import java.util.concurrent.CompletableFuture;
 @RequiredArgsConstructor
 public class GraphqlMutationService implements GraphQLMutationResolver {
 
-  private final BookRepository bookRepository;
+    private final BookRepository bookRepository;
+    private final BookPublisher bookPublisher;
 
-  public CompletableFuture<Book> addBook(String name, String authorName, String description) {
-    return bookRepository.save(Book.builder()
-            .name(name)
-            .authorName(authorName)
-            .description(description)
-        .build()).toFuture();
-  }
+    public CompletableFuture<Book> addBook(String name, String authorName, String description) {
+        return bookRepository.save(Book.builder()
+                        .name(name)
+                        .authorName(authorName)
+                        .description(description)
+                        .build())
+                .doOnSuccess(bookPublisher::publish)
+                .toFuture();
+    }
 
 }

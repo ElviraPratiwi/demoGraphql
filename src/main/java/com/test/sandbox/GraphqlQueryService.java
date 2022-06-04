@@ -1,6 +1,6 @@
 package com.test.sandbox;
 
-import graphql.kickstart.tools.GraphQLQueryResolver;
+import com.coxautodev.graphql.tools.GraphQLQueryResolver;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
@@ -15,16 +15,17 @@ import java.util.concurrent.CompletableFuture;
 @RequiredArgsConstructor
 public class GraphqlQueryService implements GraphQLQueryResolver {
 
-  private final BookRepository bookRepository;
+    private final BookRepository bookRepository;
 
-  public CompletableFuture<String> helloWorld() {
-    return Mono.just("Hello World").toFuture();
-  }
+    public CompletableFuture<String> helloWorld() {
+        return Mono.just("Hello World").toFuture();
+    }
 
-  public CompletableFuture<List<Book>> findAllBooks() {
-    return bookRepository.findAll().collectList().toFuture();
-  }
-  public CompletableFuture<Book> findBookById(String id) {
-    return bookRepository.findBookById(id).toFuture();
-  }
+    public CompletableFuture<List<Book>> findAllBooks() {
+        return bookRepository.findAll().collectList().toFuture();
+    }
+
+    public CompletableFuture<Book> findBookById(String id) {
+        return bookRepository.findBookById(id).toFuture();
+    }
 }
