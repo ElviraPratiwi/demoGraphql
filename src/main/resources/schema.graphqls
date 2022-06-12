@@ -1,5 +1,7 @@
 schema {
     query: Query
+    subscription: Subscription
+    mutation: Mutation
 }
 
 type Query {
@@ -8,6 +10,7 @@ type Query {
     findBookById(id: String) : Book
 
 }
+
 type Mutation {
     addBook(
         name: String!
