@@ -1,6 +1,7 @@
-package com.test.sandbox;
+package com.test.sandbox.repository;
 
 import com.sun.corba.se.spi.ior.ObjectId;
+import com.test.sandbox.model.Student;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 
 /**

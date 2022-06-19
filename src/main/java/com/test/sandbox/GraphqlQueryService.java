@@ -1,6 +1,14 @@
 package com.test.sandbox;
 
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
+import com.test.sandbox.model.Book;
+import com.test.sandbox.model.BookType;
+import com.test.sandbox.model.LecturerSO;
+import com.test.sandbox.model.MemberSO;
+import com.test.sandbox.model.StudentSO;
+import com.test.sandbox.repository.BookRepository;
+import com.test.sandbox.repository.LecturerRepository;
+import com.test.sandbox.repository.StudentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;

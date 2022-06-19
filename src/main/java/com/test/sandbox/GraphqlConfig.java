@@ -1,6 +1,8 @@
 package com.test.sandbox;
 
 import com.coxautodev.graphql.tools.SchemaParserDictionary;
+import com.test.sandbox.model.LecturerSO;
+import com.test.sandbox.model.StudentSO;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 

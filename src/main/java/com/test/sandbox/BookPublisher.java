@@ -1,5 +1,6 @@
 package com.test.sandbox;
 
+import com.test.sandbox.model.Book;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.reactivestreams.Publisher;

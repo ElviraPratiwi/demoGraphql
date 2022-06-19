@@ -1,6 +1,7 @@
 package com.test.sandbox;
 
 import com.coxautodev.graphql.tools.GraphQLSubscriptionResolver;
+import com.test.sandbox.model.Book;
 import lombok.RequiredArgsConstructor;
 import org.reactivestreams.Publisher;
 import org.springframework.stereotype.Component;

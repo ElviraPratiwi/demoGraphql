@@ -1,6 +1,9 @@
 package com.test.sandbox;
 
 import com.coxautodev.graphql.tools.GraphQLMutationResolver;
+import com.test.sandbox.model.Book;
+import com.test.sandbox.model.InputBookRequest;
+import com.test.sandbox.repository.BookRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

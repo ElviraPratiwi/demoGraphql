@@ -1,4 +1,4 @@
-package com.test.sandbox;
+package com.test.sandbox.model;
 
 import lombok.Builder;
 import lombok.Data;
