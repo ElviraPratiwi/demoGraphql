@@ -13,17 +13,31 @@ import java.util.concurrent.CompletableFuture;
 @RequiredArgsConstructor
 public class GraphqlMutationService implements GraphQLMutationResolver {
 
-    private final BookRepository bookRepository;
-    private final BookPublisher bookPublisher;
+  private final BookRepository bookRepository;
+  private final BookPublisher bookPublisher;
 
-    public CompletableFuture<Book> addBook(String name, String authorName, String description) {
-        return bookRepository.save(Book.builder()
-                        .name(name)
-                        .authorName(authorName)
-                        .description(description)
-                        .build())
-                .doOnSuccess(bookPublisher::publish)
-                .toFuture();
-    }
+  public CompletableFuture<Book> addBook(InputBookRequest request) {
+    return bookRepository.save(Book.builder()
+            .name(request.getName())
+            .type(request.getType())
+            .authorName(request.getAuthorName())
+            .description(request.getDescription())
+            .build())
+        .doOnSuccess(bookPublisher::publish)
+        .toFuture();
+  }
+
+  public CompletableFuture<Book> updateBook(String id, InputBookRequest request) {
+    return bookRepository.findBookById(id)
+        .flatMap(book -> {
+          book.setName(request.getName());
+          book.setType(request.getType());
+          book.setAuthorName(request.getAuthorName());
+          book.setDescription(request.getDescription());
+          return bookRepository.save(book);
+        })
+        .doOnSuccess(bookPublisher::publish)
+        .toFuture();
+  }
 
 }

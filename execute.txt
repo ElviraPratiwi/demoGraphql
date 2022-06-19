@@ -1,0 +1,58 @@
+fragment bookDetail on Book {
+  id
+  type
+  name
+  authorName
+  description
+}
+
+
+mutation executeMutation {
+  addBook(input: {name: "321", type: COMIC, authorName: "saya", description: "description biasa"}) {
+    ...bookDetail
+  }
+  updateBook(id: "62af6fbd48964f4630145be5", input: {name: "123123", type: COMIC, authorName: "saya", description: "description biasa"}) {
+    ...bookDetail
+  }
+}
+
+query executeQuery {
+  findAllBooks {
+    ...bookDetail
+  }
+  findBookById (id:"62af6fbd48964f4630145be5"){
+    ...bookDetail
+  }
+  findAllBookByType(type: COMIC) {
+    ...bookDetail
+  }
+  __schema {
+    types {
+      name
+      description
+    }
+  }
+  __type(name: "Book") {
+    name
+    fields {
+      name
+    }
+  }
+  findAllMember {
+    id
+    name
+    ... on LecturerSO {
+      lecturerCode
+    }
+    ... on StudentSO {
+      studentCode
+    }
+  }
+}
+
+
+# subscription executeSubscription {
+#   findBook {
+#     ...bookDetail
+#   }
+# }

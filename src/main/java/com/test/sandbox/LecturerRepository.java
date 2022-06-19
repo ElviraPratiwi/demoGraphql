@@ -8,7 +8,5 @@ import reactor.core.publisher.Mono;
 /**
  * Created by elvira.pratiwi on 23-May-22
  */
-public interface BookRepository extends ReactiveMongoRepository<Book, ObjectId> {
-  Mono<Book> findBookById(String id);
-  Flux<Book> findAllByType(BookType type);
+public interface LecturerRepository extends ReactiveMongoRepository<Lecturer, ObjectId> {
 }

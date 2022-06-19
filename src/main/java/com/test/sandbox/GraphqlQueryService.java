@@ -15,17 +15,40 @@ import java.util.concurrent.CompletableFuture;
 @RequiredArgsConstructor
 public class GraphqlQueryService implements GraphQLQueryResolver {
 
-    private final BookRepository bookRepository;
+  private final BookRepository bookRepository;
+  private final LecturerRepository lecturerRepository;
+  private final StudentRepository studentRepository;
 
-    public CompletableFuture<String> helloWorld() {
-        return Mono.just("Hello World").toFuture();
-    }
+  public CompletableFuture<String> helloWorld() {
+    return Mono.just("Hello World").toFuture();
+  }
 
-    public CompletableFuture<List<Book>> findAllBooks() {
-        return bookRepository.findAll().collectList().toFuture();
-    }
+  public CompletableFuture<List<Book>> findAllBooks() {
+    return bookRepository.findAll().collectList().toFuture();
+  }
 
-    public CompletableFuture<Book> findBookById(String id) {
-        return bookRepository.findBookById(id).toFuture();
-    }
+  public CompletableFuture<List<Book>> findAllBookByType(BookType type) {
+    return bookRepository.findAllByType(type).collectList().toFuture();
+  }
+
+  public CompletableFuture<Book> findBookById(String id) {
+    return bookRepository.findBookById(id).toFuture();
+  }
+
+  public CompletableFuture<List<MemberSO>> findAllMember() {
+    return Mono.zip(lecturerRepository.findAll()
+            .map(lecturer -> new LecturerSO(lecturer.getId(), lecturer.getName(),
+                lecturer.getLecturerCode())
+            ).map(lecturerSO -> (MemberSO) lecturerSO)
+            .collectList(), studentRepository.findAll()
+            .map(student -> new StudentSO(student.getId(), student.getName(),
+                student.getStudentCode())
+            ).map(student -> (MemberSO) student)
+            .collectList())
+        .map(objects -> {
+          objects.getT1().addAll(objects.getT2());
+          return objects.getT1();
+        })
+        .toFuture();
+  }
 }

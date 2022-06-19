@@ -4,28 +4,67 @@ schema {
     mutation: Mutation
 }
 
-type Query {
-    helloWorld : String
-    findAllBooks : [Book]
-    findBookById(id: String) : Book
-
-}
-
-type Mutation {
-    addBook(
-        name: String!
-        description: String
-        authorName: String
-    ):Book
-}
-
-type Subscription {
-    findBook: Book
+#Object Type
+##########################################################
+enum BookType {
+    MAGAZINE
+    NOVEL
+    COMIC
+    DICTIONARY
 }
 
 type Book {
     id : String
+    type: BookType
     name : String
     authorName: String
     description : String
+}
+
+interface MemberSO {
+    id : String
+    name : String
+}
+
+type LecturerSO implements MemberSO {
+    id : String
+    name : String
+    lecturerCode: String
+}
+
+type StudentSO implements MemberSO {
+    id : String
+    name : String
+    studentCode: String
+}
+
+#Query
+##########################################################
+type Query {
+    helloWorld : String
+    findAllBooks : [Book]
+    findBookById(id: String) : Book
+    findAllBookByType(type:BookType): [Book]
+    findAllMember:[MemberSO]
+}
+
+#Mutation
+##########################################################
+
+input InputBook {
+    name: String!
+    type: BookType
+    description: String
+    authorName: String
+}
+
+type Mutation {
+    addBook(input:InputBook!):Book
+    updateBook(id:String!, input:InputBook): Book
+}
+
+#Subscription
+##########################################################
+type Subscription {
+    findBook: Book
 }
